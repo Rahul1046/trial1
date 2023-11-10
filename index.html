@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    button {
+      background-color: #4CAF50; /* Green */
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    button.ledOn {
+      background-color: #4CAF50; /* Green */
+    }
+    button.ledOff {
+      background-color: #f44336; /* Red */
+    }
+  </style>
+</head>
+<body>
+
+<h2>ESP32 LED Control</h2>
+
+<p>Click the button to control the LED on the ESP32.</p>
+
+<button class="ledOn" onclick="sendData('ON')">Turn LED ON</button>
+<button class="ledOff" onclick="sendData('OFF')">Turn LED OFF</button>
+
+<p>Click "Get Data" to receive the current state of the LED from the ESP32.</p>
+
+<button onclick="getData()">Get Data</button>
+
+<p id="response"></p>
+
+<script>
+function sendData(ledState) {
+  fetch('http://192.168.223.24:3000/api/post-endpoint', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `ledState=${ledState}`,
+  });
+}
+
+function getData() {
+  fetch('http://192.168.223.24:3000/api/get-endpoint')
+  .then(response => response.text())
+  .then(data => document.getElementById('response').innerHTML = data);
+}
+</script>
+
+</body>
+</html>
