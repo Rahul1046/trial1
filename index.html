@@ -39,7 +39,7 @@
 
 <script>
 function sendData(ledState) {
-  fetch('http://192.168.223.24:3000/api/post-endpoint', {
+  fetch('http://192.168.138.24:3000/api/post-endpoint', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -49,7 +49,7 @@ function sendData(ledState) {
 }
 
 function getData() {
-  fetch('http://192.168.223.24:3000/api/get-endpoint')
+  fetch('http://192.168.138.24:3000/api/get-endpoint')
   .then(response => response.text())
   .then(data => document.getElementById('response').innerHTML = data);
 }
